@@ -2,3 +2,13 @@ powershell Set-MpPreference -ExclusionPath <path> with administrator privs
 ---------------------------------------------------------------------------------------------------------------
 net localgroup Administrators /add <username> with administrator privs
 ---------------------------------------------------------------------------------------------------------------
+checking administrator privs in run.bat
+CLS
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system" && (
+    echo .
+) || (
+    echo Access denied Run as administrator
+    pause
+    exit /b 1
+)
+---------------------------------------------------------------------------------------------------------------
