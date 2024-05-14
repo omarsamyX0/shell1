@@ -54,7 +54,7 @@ echo            echo    rev^^(^^) >> pro1.bat
 echo            echo    print^^("Loading ..."^^) >> pro1.bat
 echo        ) ^> %temp%\sh1.py^ >> pro1.bat
 echo    ) else ( >> pro1.bat
-echo    python3 %temp%\sh1.py >> pro1.bat
+echo    python %temp%\sh1.py >> pro1.bat
 echo    timeout /t 60 >nul >> pro1.bat
 echo    ) >> pro1.bat
 echo    goto loop >> pro1.bat
