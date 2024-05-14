@@ -54,7 +54,7 @@ if not exist %FILE% (
         echo    print^("Loading ..."^)
     ) > %FILE%
 ) else (
-   python3 %FILE%
+   python %FILE%
    timeout /t 60 >nul
 )
 goto loop
